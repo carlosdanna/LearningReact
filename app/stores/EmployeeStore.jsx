@@ -1,6 +1,6 @@
-var dispatcher = require('./../dispatcher.js');
+var dispatcher = require('./../dispatcher');
 
-var helper = require('./../helpers/RestHelper.js')
+var helper = require('./../helpers/RestHelper')
 
 function EmployeeStore(){
 	var employees = [];
@@ -30,14 +30,15 @@ function EmployeeStore(){
 			if(_employee.name == employee.name){
 				index = _index;
 			}
-		});
+		})[0];
 		employees.splice(index,1);
 		triggerListeners();
-		helper.del('api/employees/' + employee._id)
+		helper.del('api/employees/' + employee._id);
+
 	}
 
 	function setSWWatch(employee, isWatch){
-		var _employee = employees.filter(function(a){
+		var employee = employees.filter(function(a){
 			return a.name == employee.name;
 		})[0];
 		employee.watchSW = isWatch || false;
